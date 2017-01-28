@@ -52,3 +52,7 @@ class Arduino(object):
     def servoWrite(self, servoNumber, pos):
         if not self.serial is None:
             self.serial.write(("W:S:" + str(servoNumber) + ":" + str(pos) + "\n").encode('ascii'))
+
+    def printToLCD(self, text):
+        if not self.serial is None:
+            self.serial.write(("D:T:" + str(text)).encode('ascii'))

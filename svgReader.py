@@ -10,7 +10,7 @@ class svg_reader(object):
         self.getPoints()
 
     def getSvg(self):
-        xmldoc = minidom.parse('C:\\Users\\fsr19\\Desktop\\Soccerball.svg')
+        xmldoc = minidom.parse('C:\\Users\\Frederik\\Desktop\\Raspberry_Pi_Logo.svg')
         svg = xmldoc.getElementsByTagName("svg")[0]
         g = svg.getElementsByTagName("g")[0]
         self.svg_data = [path.getAttribute('d') for path in g.getElementsByTagName("path")]

@@ -33,20 +33,23 @@ class Stepper(object):
         elif steps_to_move > 0:
             self.direction = 1
 
+
         while steps_left > 0:
             now = self.current_micro()
             if now - self.last_step_time >= self.delay:
                 self.last_step_time = now
 
                 if self.direction == 1:
+
                     self.step_number += 1
                     if self.step_number == self.number_of_steps:
                         self.step_number = 0
                 if self.direction == 0:
+
                     if self.step_number == 0:
                         self.step_number = self.number_of_steps
                     self.step_number -= 1
-
+                print(self.step_number % 4)
                 steps_left -= 1
                 self.stepMotor(self.step_number % 4)
 

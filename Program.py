@@ -2,13 +2,17 @@ import time, pygame
 from arduinoLib import arduino, stepper
 import svgReader, head
 
-svg = svgReader.svg_reader()
-
 a = arduino.Arduino("COM3", 115200)
 a.connect()
 
-stepperX = stepper.Stepper(a, 200, 2, 3, 4, 5)
-stepperY = stepper.Stepper(a, 200, 6, 7, 8, 9)
+a.printToLCD("Loading svg...:")
+
+svg = svgReader.svg_reader()
+
+a.printToLCD("Svg loaded:")
+
+stepperX = stepper.Stepper(a, 200, 4, 6, 5, 7)
+stepperY = stepper.Stepper(a, 200, 8, 10, 9, 11)
 head = head.head(stepperX, stepperY)
 
 pygame.init()
@@ -21,6 +25,8 @@ drawRed = True
 
 head_goto = None
 
+a.printToLCD("Drawing:")
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -28,12 +34,15 @@ while running:
     if drawRed:
         for x in range(0, len(svg.points)):
             screen.set_at(svg.points[x], (255, 0, 0))
+            #a.printToLCD("Head; " + str(svg.points[x]))
         pygame.display.flip()
         drawRed = False
 
     if head_goto != None:
         try:
-            screen.set_at(next(head_goto), (0, 255, 0))
+            p = next(head_goto)
+            screen.set_at(p, (0, 255, 0))
+            #a.printToLCD("Head; " + str(p))
         except StopIteration:
             head_goto = None
             screen.set_at(svg.points[currentPointNumber], (255, 255, 255))
