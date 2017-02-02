@@ -56,3 +56,5 @@ class Arduino(object):
     def printToLCD(self, text):
         if not self.serial is None:
             self.serial.write(("D:T:" + str(text)).encode('ascii'))
+        else:
+            print(text)

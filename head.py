@@ -5,6 +5,7 @@ class head(object):
     def __init__(self, stepperX, stepperY):
         self.x = 0
         self.y = 0
+        self.servoPos = 90  # 0 for down, 90 for up
         self.stepperX = stepperX
         self.stepperY = stepperY
         self.speed = 1
@@ -56,7 +57,6 @@ class head(object):
         else:
             ratio = abs(x_diff)/abs(y_diff)
             if ratio < 1:
-                print(ratio)
                 fx = ratio
                 while self.y != y:
                     if round(fx) >= 1:
@@ -74,7 +74,6 @@ class head(object):
                     yield (self.x, self.y)
             else:
                 ratio = abs(y_diff)/abs(x_diff)
-                print(ratio)
                 fy = ratio
                 while self.x != x:
                     if round(fy) >= 1:
